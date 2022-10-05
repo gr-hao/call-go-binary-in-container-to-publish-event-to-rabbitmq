@@ -2,6 +2,8 @@ Go binary app is always in static linking, then it can be called in a linux cont
 
 ## Build go-producer binary
 
+This go producer binary is called in the python app container and nodejs app container to pushlish some messages to the Rabbitmq topic. 
+
 ```
 cd ./go-producer/ 
 make clean; make; 
