@@ -1,0 +1,35 @@
+version: '3.4'
+
+services:
+  rabbitmq:
+    image: "rabbitmq:3-management"
+    environment:
+      RABBITMQ_DEFAULT_USER: "guest"
+      RABBITMQ_DEFAULT_PASS: "guest"
+      RABBITMQ_DEFAULT_VHOST: "/"
+    ports:
+      - 15672:15672
+      - 5672:5672
+
+  consumer:
+    image: consumer
+    build:
+      context: ./go-consumer
+      dockerfile: ./Dockerfile
+    depends_on:
+      - rabbitmq
+
+  python-app:
+    image: python-app
+    build:
+      context: ./py-app
+      dockerfile: ./Dockerfile
+
+  nodejs-app:
+    image: nodejs-app
+    build:
+      context: ./nodejs-app
+      dockerfile: ./Dockerfile
+    environment:
+      NODE_ENV: production
+
